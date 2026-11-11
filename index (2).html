@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ดูดวงรายวัน</title>
+<meta name="description" content="ดูดวงรายวันจากวันเกิด พร้อมเซียมซีออนไลน์ ฟรี ไม่ต้องสมัคร">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#1a1038; --bg2:#3b1f6b; --card:rgba(255,255,255,.08);
+    --line:rgba(255,255,255,.18); --text:#f5f0ff; --muted:#c9bdf0;
+    --gold:#ffd36b; --accent:#b388ff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; color:var(--text);
+    font-family:'Sarabun',system-ui,sans-serif; line-height:1.6;
+    background:radial-gradient(1200px 600px at 20% -10%,var(--bg2),transparent 60%),
+               radial-gradient(900px 500px at 100% 0%,#5b2a86,transparent 55%),
+               var(--bg1);
+    background-attachment:fixed;
+  }
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 22%,#fff8,transparent),
+      radial-gradient(1px 1px at 38% 70%,#fff7,transparent),
+      radial-gradient(1.5px 1.5px at 70% 15%,#fff9,transparent),
+      radial-gradient(1px 1px at 85% 60%,#fff6,transparent),
+      radial-gradient(1px 1px at 55% 40%,#fff5,transparent),
+      radial-gradient(1.5px 1.5px at 25% 88%,#fff7,transparent);
+  }
+  main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:28px 16px 56px}
+  h1{font-family:'Mitr',sans-serif;font-weight:500;text-align:center;margin:8px 0 4px;
+     font-size:clamp(28px,6vw,38px);color:var(--gold);letter-spacing:.5px}
+  .sub{text-align:center;color:var(--muted);margin:0 0 22px}
+  .tabs{display:flex;gap:8px;background:var(--card);border:1px solid var(--line);
+        padding:6px;border-radius:999px;margin-bottom:20px}
+  .tabs button{flex:1;border:0;background:transparent;color:var(--muted);
+        font:inherit;font-weight:600;padding:10px 12px;border-radius:999px;cursor:pointer;transition:.2s}
+  .tabs button.on{background:var(--accent);color:#1a1038}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;
+        padding:20px;backdrop-filter:blur(6px)}
+  label{display:block;font-weight:600;margin-bottom:8px}
+  input[type=date]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+        background:rgba(0,0,0,.25);color:var(--text);font:inherit;color-scheme:dark}
+  .btn{width:100%;margin-top:14px;padding:13px;border:0;border-radius:12px;cursor:pointer;
+       background:linear-gradient(135deg,var(--gold),#ffb347);color:#2a1448;
+       font-family:'Mitr',sans-serif;font-size:18px;transition:transform .15s}
+  .btn:active{transform:scale(.98)}
+  .hidden{display:none}
+  .head{text-align:center;margin-bottom:14px}
+  .sign{font-size:54px;line-height:1}
+  .head h2{font-family:'Mitr',sans-serif;font-weight:500;margin:6px 0 0;font-size:24px}
+  .head small{color:var(--muted)}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:12px;
+       padding:12px 0;border-top:1px solid var(--line)}
+  .row:first-of-type{border-top:0}
+  .row b{min-width:78px}
+  .row .txt{flex:1;color:#efe8ff}
+  .stars-r{color:var(--gold);white-space:nowrap;letter-spacing:2px}
+  .lucky{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .lucky div{background:rgba(0,0,0,.22);border-radius:14px;padding:12px;text-align:center}
+  .lucky span{display:block;color:var(--muted);font-size:14px}
+  .lucky strong{font-family:'Mitr',sans-serif;font-weight:500;font-size:20px}
+  .dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:6px;vertical-align:-1px;border:1px solid #fff6}
+  .note{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+  /* เซียมซี */
+  .jar{text-align:center}
+  .jar .cup{font-size:96px;display:inline-block;cursor:pointer;user-select:none}
+  .shake{animation:shake .6s}
+  @keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-10deg)}80%{transform:rotate(8deg)}}
+  .stick{margin-top:14px;text-align:left}
+  .stick .no{font-family:'Mitr',sans-serif;color:var(--gold);font-size:22px;text-align:center}
+  .stick .lv{text-align:center;font-weight:600;margin-bottom:8px}
+  .stick p{margin:6px 0;color:#efe8ff}
+  .fade{animation:fade .5s}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<main>
+  <h1>✨ ดูดวงรายวัน ✨</h1>
+  <p class="sub">ดูดวงจากวันเกิด และเสี่ยงเซียมซีออนไลน์ ฟรี ไม่ต้องสมัคร</p>
+
+  <div class="tabs">
+    <button id="t1" class="on">ดวงประจำวัน</button>
+    <button id="t2">เซียมซี</button>
+  </div>
+
+  <!-- ดวงประจำวัน -->
+  <section id="p1">
+    <div class="card" id="formCard">
+      <label for="bd">วันเกิดของคุณ</label>
+      <input type="date" id="bd">
+      <button class="btn" id="go">ดูดวงวันนี้</button>
+    </div>
+
+    <div class="card fade hidden" id="result">
+      <div class="head">
+        <div class="sign" id="rSign"></div>
+        <h2 id="rName"></h2>
+        <small id="rDate"></small>
+      </div>
+      <div id="rows"></div>
+      <div class="lucky">
+        <div><span>เลขนำโชค</span><strong id="rNum"></strong></div>
+        <div><span>สีมงคล</span><strong id="rColor"></strong></div>
+      </div>
+      <button class="btn" id="again" style="margin-top:18px">ดูของคนอื่น</button>
+    </div>
+  </section>
+
+  <!-- เซียมซี -->
+  <section id="p2" class="hidden">
+    <div class="card jar">
+      <div class="cup" id="cup">🏺</div>
+      <p style="margin:0;color:var(--muted)">ตั้งจิตอธิษฐาน แล้วแตะกระบอกเพื่อเขย่า</p>
+      <button class="btn" id="draw">เขย่าเซียมซี</button>
+      <div class="stick hidden" id="stick"></div>
+    </div>
+  </section>
+
+  <p class="note">เพื่อความบันเทิงเท่านั้น ไม่ใช่คำแนะนำทางการแพทย์ การเงิน หรือกฎหมาย</p>
+</main>
+
+<script>
+const SIGNS = [
+  {n:'มกร',e:'♑',s:[12,22],t:[1,19]},
+  {n:'กุมภ์',e:'♒',s:[1,20],t:[2,18]},
+  {n:'มีน',e:'♓',s:[2,19],t:[3,20]},
+  {n:'เมษ',e:'♈',s:[3,21],t:[4,19]},
+  {n:'พฤษภ',e:'♉',s:[4,20],t:[5,20]},
+  {n:'เมถุน',e:'♊',s:[5,21],t:[6,20]},
+  {n:'กรกฎ',e:'♋',s:[6,21],t:[7,22]},
+  {n:'สิงห์',e:'♌',s:[7,23],t:[8,22]},
+  {n:'กันย์',e:'♍',s:[8,23],t:[9,22]},
+  {n:'ตุลย์',e:'♎',s:[9,23],t:[10,22]},
+  {n:'พิจิก',e:'♏',s:[10,23],t:[11,21]},
+  {n:'ธนู',e:'♐',s:[11,22],t:[12,21]}
+];
+function getSign(m,d){
+  const v=m*100+d;
+  if(v>=1222||v<=119)return SIGNS[0];
+  for(const s of SIGNS.slice(1)){
+    if(v>=s.s[0]*100+s.s[1] && v<=s.t[0]*100+s.t[1]) return s;
+  }
+  return SIGNS[0];
+}
+const DAYCOL = [
+  ['วันอาทิตย์','แดง','#e53935'],['วันจันทร์','เหลือง','#fdd835'],
+  ['วันอังคาร','ชมพู','#f48fb1'],['วันพุธ','เขียว','#43a047'],
+  ['วันพฤหัสบดี','ส้ม','#fb8c00'],['วันศุกร์','ฟ้า','#29b6f6'],
+  ['วันเสาร์','ม่วง','#8e24aa']
+];
+const TEXT = {
+  love:[
+    'มีคนแอบมองคุณอยู่ ลองเปิดใจคุยกับคนใหม่ๆ ดู',
+    'คู่รักเข้าใจกันมากขึ้น เหมาะกับการใช้เวลาด้วยกัน',
+    'อย่าเพิ่งตัดสินใจเรื่องหัวใจตอนอารมณ์ร้อน รอให้ใจนิ่งก่อน',
+    'คำพูดดีๆ ที่ส่งไปจะถูกจดจำ ลองทักคนที่คิดถึงสักข้อความ',
+    'คนโสดมีโอกาสเจอคนถูกใจจากงานสังสรรค์หรือเพื่อนแนะนำ',
+    'วันนี้ฟังมากกว่าพูด ความรักจะราบรื่นขึ้น',
+    'เรื่องเก่ากลับมาให้คิด ปล่อยวางบ้าง ใจจะเบาขึ้น',
+    'ความจริงใจคือเสน่ห์ที่แรงที่สุดของวันนี้'
+  ],
+  work:[
+    'งานที่ค้างอยู่คลี่คลาย มีคนช่วยเหลือโดยไม่ต้องร้องขอ',
+    'ไอเดียใหม่ๆ ผุดขึ้นมา รีบจดไว้ก่อนลืม',
+    'ระวังความเข้าใจผิดในการสื่อสาร ตรวจสอบรายละเอียดอีกครั้ง',
+    'ผู้ใหญ่ให้การสนับสนุน เหมาะกับการเสนองานหรือขอคำปรึกษา',
+    'วันนี้งานเยอะ แต่ถ้าจัดลำดับความสำคัญได้ ทุกอย่างจะเสร็จทัน',
+    'ทำงานเป็นทีมได้ผลดีกว่าลุยคนเดียว',
+    'มีโอกาสแสดงฝีมือ อย่าถ่อมตัวจนเกินไป',
+    'ค่อยเป็นค่อยไป ผลงานที่ละเอียดจะได้รับคำชม'
+  ],
+  money:[
+    'มีรายได้เล็กๆ น้อยๆ เข้ามาโดยไม่คาดคิด',
+    'ระวังการใช้จ่ายตามอารมณ์ ลองรอ 1 วันก่อนซื้อของชิ้นใหญ่',
+    'เรื่องเงินทองนิ่งๆ ไม่มีอะไรหวือหวา เหมาะกับการจัดระเบียบบัญชี',
+    'มีโอกาสได้ของฝากหรือส่วนลดที่ถูกใจ',
+    'อย่าให้ใครยืมเงินโดยไม่คิดให้ดี',
+    'การลงทุนระยะยาวให้ผลดีกว่าการเก็งกำไรระยะสั้น',
+    'มีค่าใช้จ่ายที่ไม่ได้วางแผนไว้ เตรียมเงินสำรองไว้บ้าง',
+    'ใครติดค้างอยู่ มีแนวโน้มได้คืนในเร็วๆ นี้'
+  ],
+  health:[
+    'พลังงานดี เหมาะกับการออกกำลังกายเบาๆ',
+    'พักผ่อนให้พอ ร่างกายกำลังต้องการการฟื้นตัว',
+    'ดื่มน้ำให้มากขึ้น และเลี่ยงของทอดหรือหวานจัด',
+    'ความเครียดสะสม ลองหาเวลาเดินเล่นหรือฟังเพลงผ่อนคลาย',
+    'ระวังอาการปวดเมื่อยจากการนั่งนาน ลุกยืดเส้นบ้าง',
+    'สุขภาพโดยรวมแข็งแรง ใจสบายร่างกายก็สบาย',
+    'อากาศเปลี่ยน ดูแลคอและระบบหายใจเป็นพิเศษ',
+    'นอนให้เร็วขึ้นคืนนี้ พรุ่งนี้จะสดชื่นกว่าเดิม'
+  ]
+};
+const LABEL = {love:'💖 ความรัก',work:'💼 การงาน',money:'💰 การเงิน',health:'🌿 สุขภาพ'};
+
+// ตัวสุ่มแบบคงที่: วันเกิดเดียวกัน วันเดียวกัน ได้ผลเหมือนเดิม
+function seed(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19}
+  return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return((h^=h>>>16)>>>0)/4294967296}}
+
+const $=id=>document.getElementById(id);
+const today=new Date();
+const todayKey=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+$('bd').max=new Date(today.getTime()-today.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+try{const saved=localStorage.getItem('bd'); if(saved)$('bd').value=saved;}catch(e){}
+
+$('go').onclick=()=>{
+  const v=$('bd').value;
+  if(!v){alert('กรุณาเลือกวันเกิดก่อนนะครับ');return}
+  try{localStorage.setItem('bd',v)}catch(e){}
+  const [y,m,d]=v.split('-').map(Number);
+  const sign=getSign(m,d);
+  const dow=new Date(y,m-1,d).getDay();
+  const [dayName,colName,colHex]=DAYCOL[dow];
+  const rnd=seed(v+'|'+todayKey);
+
+  $('rSign').textContent=sign.e;
+  $('rName').textContent='ราศี'+sign.n;
+  $('rDate').textContent='เกิด'+dayName+' • ดวงวันที่ '+today.toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'});
+
+  let html='';
+  for(const k of Object.keys(LABEL)){
+    const stars=Math.floor(rnd()*3)+3; // 3-5 ดาว
+    const txt=TEXT[k][Math.floor(rnd()*TEXT[k].length)];
+    html+=`<div class="row"><b>${LABEL[k]}</b><span class="txt">${txt}</span><span class="stars-r">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</span></div>`;
+  }
+  $('rows').innerHTML=html;
+  $('rNum').textContent=Math.floor(rnd()*90+10)+' , '+Math.floor(rnd()*9+1);
+  $('rColor').innerHTML=`<i class="dot" style="background:${colHex}"></i>${colName}`;
+  $('formCard').classList.add('hidden');
+  $('result').classList.remove('hidden');
+};
+$('again').onclick=()=>{$('result').classList.add('hidden');$('formCard').classList.remove('hidden')};
+
+// แท็บ
+function tab(n){
+  $('p1').classList.toggle('hidden',n!==1);$('p2').classList.toggle('hidden',n!==2);
+  $('t1').classList.toggle('on',n===1);$('t2').classList.toggle('on',n===2);
+}
+$('t1').onclick=()=>tab(1);$('t2').onclick=()=>tab(2);
+
+// เซียมซี
+const STICKS=[
+  ['ดีมาก','เมฆหมอกจางหายฟ้าสว่าง','สิ่งที่รอคอยกำลังมาถึง','ทำใจให้ผ่องใส โชคจะตามมาเอง'],
+  ['ดี','น้ำไหลไปตามทางย่อมถึงทะเล','ค่อยๆ ทำไป ความสำเร็จอยู่ไม่ไกล','อย่ารีบร้อน อดทนอีกนิดเดียว'],
+  ['กลาง','ลมแรงแต่ต้นไม้ยังตั้งมั่น','มีอุปสรรคเล็กน้อยแต่ผ่านไปได้','ตั้งสติ ปรึกษาคนที่ไว้ใจ'],
+  ['ดีมาก','ดอกไม้บานรับแสงอรุณ','โอกาสดีเข้ามาในเร็ววัน','เตรียมตัวให้พร้อมแล้วคว้าไว้'],
+  ['กลาง','เรือเล็กต้องระวังคลื่น','อย่าเสี่ยงเกินตัวในช่วงนี้','พักรอจังหวะ แล้วค่อยเดินหน้า'],
+  ['ดี','พระจันทร์เต็มดวงส่องทางกลับบ้าน','เรื่องครอบครัวและคนใกล้ตัวราบรื่น','ใช้เวลากับคนที่รักให้มากขึ้น'],
+  ['ควรระวัง','หมอกลงจัดมองไม่เห็นทาง','อย่าตัดสินใจเรื่องใหญ่ตอนนี้','รอให้ชัดเจนก่อน แล้วค่อยลงมือ'],
+  ['ดี','ฝนแรกของฤดูทำให้ดินชุ่มชื้น','ความช่วยเหลือมาถึงเมื่อต้องการ','เปิดใจรับน้ำใจจากคนรอบข้าง'],
+  ['ดีมาก','มังกรทะยานขึ้นฟ้า','งานใหญ่ประสบผลสำเร็จ','มั่นใจในตัวเอง แต่อย่าลืมขอบคุณคนช่วย'],
+  ['กลาง','สะพานเก่ายังข้ามได้ถ้าก้าวช้าๆ','เรื่องเดิมๆ ต้องใช้ความอดทน','ทำทีละขั้น อย่าข้ามขั้นตอน']
+];
+let busy=false;
+function draw(){
+  if(busy)return;busy=true;
+  const cup=$('cup');cup.classList.add('shake');
+  setTimeout(()=>{
+    cup.classList.remove('shake');
+    const no=Math.floor(Math.random()*28)+1;
+    const s=STICKS[Math.floor(Math.random()*STICKS.length)];
+    const el=$('stick');
+    el.innerHTML=`<div class="fade"><div class="no">ใบที่ ${no}</div><div class="lv">ระดับ: ${s[0]}</div>
+      <p>📜 ${s[1]}</p><p>🔮 ${s[2]}</p><p>💡 ${s[3]}</p></div>`;
+    el.classList.remove('hidden');
+    $('draw').textContent='เขย่าอีกครั้ง';
+    busy=false;
+  },650);
+}
+$('cup').onclick=draw;$('draw').onclick=draw;
+</script>
+</body>
+</html>
